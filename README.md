@@ -1,40 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Aeromexico Technical Test
 
-## Getting Started
+Este proyecto fue creado con [Next.js](https://nextjs.org) y cumple con los requisitos de la prueba técnica:
 
-First, run the development server:
+- **React 19** mediante **Next.js**.  
+- **TypeScript** para el desarrollo.  
+- **CSS Modules / SCSS Modules** para manejo de estilos.  
+- Manejo de datos con **JSON Server**.  
+- Estado global con **Redux Toolkit** (y opción de saga si aplica).  
+- **Pruebas unitarias** con Jest + React Testing Library.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 ¿Cómo levantar el proyecto?
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+2. **Levantar el servidor de desarrollo**  
+   La aplicación estará disponible en 👉 [http://localhost:3000](http://localhost:3000).
+   ```bash
+   npm run dev
+   ```
+   
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🧪 Pruebas unitarias
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+El proyecto incluye configuración de Jest + Testing Library.
 
-## Learn More
+- **Correr todos los tests**
+  ```bash
+  npm test
+  ```
 
-To learn more about Next.js, take a look at the following resources:
+- **Modo interactivo (watch)**
+  ```bash
+  npm run test:watch
+  ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- **Ver reporte de cobertura**
+  ```bash
+  npm run test:coverage
+  ```
+  El reporte HTML detallado se genera en la carpeta `/coverage`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📌 Preguntas de la prueba técnica
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ✅ ¿Qué es lo que más te gustó de tu desarrollo?
+_(Respuesta pendiente)_
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### ✅ Si hubieras tenido más tiempo, ¿qué hubieras mejorado o qué más hubieras hecho?
+_(Respuesta pendiente)_
+
+### ✅ Descríbenos un **pain point** o bug con el que te hayas encontrado y cómo lo solucionaste.
+_(Respuesta pendiente)_
+
+---
+
+## 📚 Recursos útiles
+
+- [Next.js Docs](https://nextjs.org/docs)  
+- [Redux Toolkit](https://redux-toolkit.js.org/)  
+- [JSON Server](https://www.npmjs.com/package/json-server)  
+- [Jest](https://jestjs.io/)  
+- [Testing Library](https://testing-library.com/docs/react-testing-library/intro/)  
