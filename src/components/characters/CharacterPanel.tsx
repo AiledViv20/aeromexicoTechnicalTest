@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./CharacterPanel.module.scss";
 import CharacterDetail from "./CharacterDetail";
 import CharacterList from "./CharacterList";
-import { getCharacters } from "rickmortyapi";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export type Character = {
   id: number;
@@ -25,49 +26,37 @@ export default function CharacterPanel() {
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<number | null>(null);
 
-  // mapper desde la respuesta del API en type interno
-  const mapApiToCharacter = (c: any): Character => ({
-    id: c.id,
-    name: c.name,
-    status: c.status,
-    species: c.species,
-    gender: c.gender,
-    origin: c.origin?.name ?? "Unknown",
-    location: c.location?.name ?? "Unknown",
-    episodes: Array.isArray(c.episode) ? c.episode.length : 0,
-    imageLarge: c.image,
-  });
-
   // fetch: carga por nombre (si hay query) o primer page
   const fetchData = async (name?: string) => {
     setLoading(true);
     setError(null);
     try {
-      const params = name ? { name } : { page: 1 };
-      const res = await getCharacters(params);
-      const results = res?.data?.results ?? [];
-      const mapped: Character[] = results.map(mapApiToCharacter);
-      setCharacters(mapped);
+      const url = new URL(`${API_BASE}/characters`);
+      if (name) url.searchParams.set("name_like", name);
+      url.searchParams.set("_sort", "id");
+      url.searchParams.set("_order", "asc");
+      const res = await fetch(url.toString());
+      if (!res.ok) throw new Error("API error");
+      const data: Character[] = await res.json();
+      setCharacters(data);
 
       // si no hay seleccionado o ya no existe en la lista, selecciona el primero
-      if (!mapped.length) {
+      if (!data.length) {
         setSelectedId(null);
-      } else if (!selectedId || !mapped.some((m) => m.id === selectedId)) {
-        setSelectedId(mapped[0].id);
+      } else if (!selectedId || !data.some(d => d.id === selectedId)) {
+        setSelectedId(data[0].id);
       }
-    } catch (e: any) {
+    } catch (e) {
       // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
-      if (e?.response?.status === 404) {
-        setCharacters([]);
-        setSelectedId(null);
-      } else {
-        setError("Error fetching characters");
-      }
+      setError("Error fetching characters");
+      setCharacters([]);
+      setSelectedId(null);
     } finally {
       setLoading(false);
     }
   };
 
+  // primera carga
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,8 +66,10 @@ export default function CharacterPanel() {
   useEffect(() => {
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => {
-      fetchData(query.trim() || undefined);
+      const q = query.trim();
+      fetchData(q || undefined);
     }, 350);
+
     return () => {
       if (debounceRef.current) window.clearTimeout(debounceRef.current);
     };
@@ -86,7 +77,7 @@ export default function CharacterPanel() {
   }, [query]);
 
   const selected = useMemo(
-    () => (selectedId ? characters.find((c) => c.id === selectedId) ?? null : null),
+    () => (selectedId ? characters.find(c => c.id === selectedId) ?? null : null),
     [characters, selectedId]
   );
 

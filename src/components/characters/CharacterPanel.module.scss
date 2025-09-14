@@ -2,7 +2,6 @@ $panel-bg: #272727;
 $panel-radius: 18px;
 $lime: #76DD00;
 $lime-20: rgba(132, 255, 0, 0.2);
-$muted: #b7b7b7;
 
 .panel {
   width: auto;
@@ -107,10 +106,11 @@ $muted: #b7b7b7;
 }
 
 .list {
+  position: relative;
   padding: 22px 22px 18px;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 36px;
+  gap: 26px;
 }
 
 .searchContainer {
@@ -151,7 +151,7 @@ $muted: #b7b7b7;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: auto;
+  grid-auto-rows: max-content;
   gap: 20px 26px;
 }
 
@@ -159,22 +159,24 @@ $muted: #b7b7b7;
   width: auto;
   height: fit-content;
   text-align: left;
-  border: 1px solid #2C2C2C;
+  border: 2px solid #2C2C2C;
   background: #2C2C2C;
   border-radius: 30px;
   padding: 10px;
   display: grid;
   gap: 8px;
-  transition: border-color .15s ease, box-shadow .15s ease;
   cursor: pointer;
   font-family: "Roboto Condensed", sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: all .15s ease;
 
-  &:hover { border-color: $lime; box-shadow: 0 0 0 3px $lime-20; }
+  &:hover {
+    background: #4F4F4FCC;
+  }
 }
 
 .cardActive {
-  border-color: $lime;
-  box-shadow: 0 0 0 3px $lime-20;
+  border: 2px solid $lime;
 }
 
 .cardThumb {
@@ -183,9 +185,10 @@ $muted: #b7b7b7;
   align-items: center;
 }
 
-.cardThumb img { object-fit: cover; width: 140px; height: auto; }
+.cardThumb img { object-fit: cover; width: 140px; height: 120px; }
 
 .cardBody {
+  position: relative;
   display: flex;
   align-items: center;
   text-align: center;
@@ -193,12 +196,22 @@ $muted: #b7b7b7;
   color: #FFF;
 }
 .cardTitle { font-weight: 400; font-size: 14px; text-transform: uppercase; }
+.spaceBtnLike {
+  height: 24px;
+}
 .cardLike {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
   font-size: 16px;
+  z-index: 999;
+  background-color: transparent;
+  color: #FFF;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
 .pager {
@@ -236,6 +249,27 @@ $muted: #b7b7b7;
   opacity: .4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.favs {
+  position: absolute;
+  color: #FFF;
+  z-index: 999;
+  bottom: 0;
+  left: 30%;
+}
+.btnFavs {
+  background: #5B5454;
+  color: #FFF;
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.btnFavs:hover { 
+  color: $lime;
 }
 
 /* @media (max-width: 920px) {

@@ -93,18 +93,30 @@ export default function CharacterList({
                   />
                 </div>
                 <div className={styles.cardBody}>
-                  <span className={styles.cardLike}>
+                  <div className={styles.spaceBtnLike}></div>
+                  <button 
+                    type="button"
+                    onClick={() => console.log("agregado a favoritos")} 
+                    className={styles.cardLike}>
                     <Image
                       src={"/icons/card/unmarked-favorite.svg"}
                       alt=""
                       width={24}
                       height={24}
                     />
-                    Like</span>
+                    Like</button>
                 </div>
               </button>
             );
           })}
+        </div>
+        <div className={styles.favs}>
+          <button 
+            type="button" 
+            className={styles.btnFavs}
+            onClick={() => console.log("btnFavs")}>
+            FAVS
+          </button>
         </div>
       </aside>
       <nav 
