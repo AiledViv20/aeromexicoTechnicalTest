@@ -11,7 +11,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "seed": "node scripts/seed.mjs --limit=24",
-    "api": "json-server --watch db.json --port 3001"
+    "api": "json-server --watch db.json --port 3001",
+    "clear:favs": "node scripts/clear-favs.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",

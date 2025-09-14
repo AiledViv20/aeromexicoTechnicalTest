@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { toggleFavorite } from "@/store/slices/favoritesSlice";
+import { loadFavorites, toggleFavorite, selectFavIds } from "@/store/slices/favoritesSlice";
+import type { AppDispatch } from '@/store';
 import CharacterDetail from "./CharacterDetail";
 import CharacterList from "./CharacterList";
 import styles from "./CharacterPanel.module.scss";
@@ -23,8 +23,8 @@ export type Character = {
 };
 
 export default function CharacterPanel() {
-  const dispatch = useDispatch();
-  const favoriteIds = useSelector((s: RootState) => s.favorites.ids);
+  const dispatch = useDispatch<AppDispatch>();
+  const favIds = useSelector(selectFavIds);
 
   const [query, setQuery] = useState("");
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -43,24 +43,19 @@ export default function CharacterPanel() {
       url.searchParams.set("_order", "asc");
       const res = await fetch(url.toString());
       if (!res.ok) throw new Error("API error");
+      
       let data: Character[] = await res.json();
 
       if (name) {
         const q = name.toLowerCase();
-        data = data.filter(c => c.name.toLowerCase().includes(q));
+        data = data.filter((c) => c.name.toLowerCase().includes(q));
       }
 
-      const merged = data.map((c) => ({
-        ...c,
-        favorite: favoriteIds.includes(c.id),
-      }));
-
-      setCharacters(merged);
-
+      setCharacters(data);
       // si no hay seleccionado o ya no existe en la lista, selecciona el primero
-      if (!merged.length) setSelectedId(null);
-      else if (!selectedId || !merged.some((d) => d.id === selectedId))
-        setSelectedId(merged[0].id);
+      if (!data.length) setSelectedId(null);
+      else if (!selectedId || !data.some((d) => d.id === selectedId))
+        setSelectedId(data[0].id);
     } catch (e) {
       // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
       setError("Error fetching characters");
@@ -71,8 +66,16 @@ export default function CharacterPanel() {
     }
   };
 
-  // primera carga
-  useEffect(() => { fetchData(); /* eslint-disable-next-line */ }, []);
+  // Cargar personajes
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Cargar favoritos (rehidrata corazones al refrescar)
+  useEffect(() => {
+    dispatch(loadFavorites());
+  }, [dispatch]);
 
   // búsqueda con debounce
   useEffect(() => {
@@ -80,18 +83,19 @@ export default function CharacterPanel() {
     debounceRef.current = window.setTimeout(() => {
       fetchData(query.trim() || undefined);
     }, 350);
-
-    return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
-    // eslint-disable-next-line
-  }, [query, favoriteIds]);
+    return () => {
+      if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   const selected = useMemo(
     () => (selectedId ? characters.find((c) => c.id === selectedId) ?? null : null),
     [characters, selectedId]
   );
 
-  const handleToggleFavorite = (id: number, _next: boolean) => {
-    dispatch(toggleFavorite(id));
+  const handleToggleFavorite = (id: number, next: boolean) => {
+    dispatch(toggleFavorite({ id, next }));
   };
 
   return (
@@ -125,6 +129,7 @@ export default function CharacterPanel() {
         selectedId={selectedId ?? -1}
         onSelect={setSelectedId}
         onToggleFavorite={handleToggleFavorite}
+        favIds={favIds}
       />
     </section>
   );

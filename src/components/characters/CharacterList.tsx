@@ -11,6 +11,7 @@ type Props = {
   onSelect: (id: number) => void;
   pageSize?: number;
   onToggleFavorite: (id: number, nextValue: boolean) => void;
+  favIds: number[];
 };
 
 export default function CharacterList({
@@ -21,6 +22,7 @@ export default function CharacterList({
   onSelect,
   pageSize = 4,
   onToggleFavorite,
+  favIds,
 }: Props) {
   const [page, setPage] = useState(0);
 
@@ -38,16 +40,10 @@ export default function CharacterList({
   const canPrev = page > 0;
   const canNext = page < totalPages - 1;
 
-  const handlePrev = () => {
-    if (canPrev) setPage((p) => p - 1);
-  };
-  const handleNext = () => {
-    if (canNext) setPage((p) => p + 1);
-  };
+  const handlePrev = () => { if (canPrev) setPage((p) => p - 1); };
+  const handleNext = () => { if (canNext) setPage((p) => p + 1); };
 
-  function getFirstName(fullName: string) {
-    return fullName.trim().split(" ")[0];
-  }
+  const getFirstName = (fullName: string) => fullName.trim().split(" ")[0];
 
   return (
     <div className={styles.containerList}>
@@ -76,7 +72,7 @@ export default function CharacterList({
         <div className={styles.grid}>
           {pageItems.map((c) => {
             const active = c.id === selectedId;
-            const isFav = !!c.favorite;
+            const isFav = favIds.includes(c.id);
             const icon = isFav
               ? "/icons/card/marked-favorite.svg"
               : "/icons/card/unmarked-favorite.svg";
@@ -93,12 +89,7 @@ export default function CharacterList({
                   <span className={styles.cardTitle}>{getFirstName(c.name)}</span>
                 </div>
                 <div className={styles.cardThumb}>
-                  <Image
-                    src={c.imageLarge}
-                    alt={c.name}
-                    width={120}
-                    height={120}
-                  />
+                  <Image src={c.imageLarge} alt={c.name} width={120} height={120} />
                 </div>
                 <div className={styles.cardBody}>
                   <div className={styles.spaceBtnLike}></div>
@@ -111,12 +102,7 @@ export default function CharacterList({
                     className={styles.cardLike}
                     aria-pressed={isFav}
                     aria-label={isFav ? "Remove from favorites" : "Add to favorites"}>
-                    <Image
-                      src={icon}
-                      alt=""
-                      width={24}
-                      height={24}
-                    />
+                    <Image src={icon} alt="" width={24} height={24} />
                     Like</button>
                 </div>
               </div>
@@ -132,9 +118,8 @@ export default function CharacterList({
           </button>
         </div>
       </aside>
-      <nav 
-        className={styles.pager}
-        aria-label="Character list pagination">
+
+      <nav className={styles.pager} aria-label="Character list pagination">
         <div className={styles.arrowCtnrTop}>
           <button
             type="button"
@@ -143,14 +128,7 @@ export default function CharacterList({
             aria-label="Previous"
             disabled={!canPrev}
           >
-            <Image
-              src={"/icons/card/arrow-top.svg"}
-              alt=""
-              aria-hidden="true"
-              width={32}
-              height={32}
-              priority
-            />
+            <Image src={"/icons/card/arrow-top.svg"} alt="" aria-hidden="true" width={32} height={32} priority />
           </button>
         </div>
         <div className={styles.arrowCtnrBottom}>
@@ -161,14 +139,7 @@ export default function CharacterList({
             aria-label="Next"
             disabled={!canNext}
           >
-            <Image
-              src={"/icons/card/arrow-bottom.svg"}
-              alt=""
-              aria-hidden="true"
-              width={32}
-              height={32}
-              priority
-            />
+            <Image src={"/icons/card/arrow-bottom.svg"} alt="" aria-hidden="true" width={32} height={32} priority />
           </button>
         </div>
       </nav>

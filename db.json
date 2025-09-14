@@ -21,7 +21,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 51,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+      "favorite": false
     },
     {
       "id": "3",
@@ -32,7 +33,8 @@
       "origin": "Earth (Replacement Dimension)",
       "location": "Earth (Replacement Dimension)",
       "episodes": 42,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/3.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
+      "favorite": false
     },
     {
       "id": "4",
@@ -43,7 +45,8 @@
       "origin": "Earth (Replacement Dimension)",
       "location": "Earth (Replacement Dimension)",
       "episodes": 42,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/4.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
+      "favorite": false
     },
     {
       "id": "5",
@@ -54,7 +57,8 @@
       "origin": "Earth (Replacement Dimension)",
       "location": "Earth (Replacement Dimension)",
       "episodes": 39,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/5.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/5.jpeg",
+      "favorite": false
     },
     {
       "id": "6",
@@ -65,7 +69,8 @@
       "origin": "Abadango",
       "location": "Abadango",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/6.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/6.jpeg",
+      "favorite": false
     },
     {
       "id": "7",
@@ -76,7 +81,8 @@
       "origin": "Earth (Replacement Dimension)",
       "location": "Testicle Monster Dimension",
       "episodes": 2,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/7.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
+      "favorite": false
     },
     {
       "id": "8",
@@ -87,7 +93,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/8.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/8.jpeg",
+      "favorite": false
     },
     {
       "id": "9",
@@ -98,7 +105,8 @@
       "origin": "Earth (Replacement Dimension)",
       "location": "Earth (Replacement Dimension)",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/9.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/9.jpeg",
+      "favorite": false
     },
     {
       "id": "10",
@@ -110,7 +118,7 @@
       "location": "Worldender's lair",
       "episodes": 1,
       "imageLarge": "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
-      "favorite": true
+      "favorite": false
     },
     {
       "id": "11",
@@ -134,7 +142,7 @@
       "location": "Anatomy Park",
       "episodes": 1,
       "imageLarge": "https://rickandmortyapi.com/api/character/avatar/12.jpeg",
-      "favorite": false
+      "favorite": true
     },
     {
       "id": "13",
@@ -145,7 +153,8 @@
       "origin": "unknown",
       "location": "Earth (Replacement Dimension)",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/13.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/13.jpeg",
+      "favorite": false
     },
     {
       "id": "14",
@@ -156,7 +165,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/14.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/14.jpeg",
+      "favorite": false
     },
     {
       "id": "15",
@@ -167,7 +177,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/15.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/15.jpeg",
+      "favorite": false
     },
     {
       "id": "16",
@@ -178,7 +189,8 @@
       "origin": "unknown",
       "location": "Earth (Replacement Dimension)",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/16.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/16.jpeg",
+      "favorite": false
     },
     {
       "id": "17",
@@ -189,7 +201,8 @@
       "origin": "Earth (C-137)",
       "location": "Anatomy Park",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/17.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/17.jpeg",
+      "favorite": false
     },
     {
       "id": "18",
@@ -200,7 +213,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 2,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/18.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/18.jpeg",
+      "favorite": false
     },
     {
       "id": "19",
@@ -211,7 +225,8 @@
       "origin": "unknown",
       "location": "unknown",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/19.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/19.jpeg",
+      "favorite": false
     },
     {
       "id": "20",
@@ -222,7 +237,8 @@
       "origin": "unknown",
       "location": "Interdimensional Cable",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/20.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/20.jpeg",
+      "favorite": false
     },
     {
       "id": "21",
@@ -233,7 +249,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 2,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/21.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/21.jpeg",
+      "favorite": false
     },
     {
       "id": "22",
@@ -244,7 +261,8 @@
       "origin": "unknown",
       "location": "Citadel of Ricks",
       "episodes": 3,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/22.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/22.jpeg",
+      "favorite": false
     },
     {
       "id": "23",
@@ -255,7 +273,8 @@
       "origin": "unknown",
       "location": "Immortality Field Resort",
       "episodes": 5,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/23.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/23.jpeg",
+      "favorite": false
     },
     {
       "id": "24",
@@ -266,7 +285,8 @@
       "origin": "Signus 5 Expanse",
       "location": "Signus 5 Expanse",
       "episodes": 1,
-      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/24.jpeg"
+      "imageLarge": "https://rickandmortyapi.com/api/character/avatar/24.jpeg",
+      "favorite": false
     }
   ],
   "favorites": []
