@@ -10,6 +10,7 @@ type Props = {
   selectedId: number;
   onSelect: (id: number) => void;
   pageSize?: number;
+  onToggleFavorite: (id: number, nextValue: boolean) => void;
 };
 
 export default function CharacterList({
@@ -19,6 +20,7 @@ export default function CharacterList({
   selectedId,
   onSelect,
   pageSize = 4,
+  onToggleFavorite,
 }: Props) {
   const [page, setPage] = useState(0);
 
@@ -74,11 +76,17 @@ export default function CharacterList({
         <div className={styles.grid}>
           {pageItems.map((c) => {
             const active = c.id === selectedId;
+            const isFav = !!c.favorite;
+            const icon = isFav
+              ? "/icons/card/marked-favorite.svg"
+              : "/icons/card/unmarked-favorite.svg";
             return (
-              <button
+              <div
                 key={c.id}
                 className={`${styles.card} ${active ? styles.cardActive : ""}`}
                 onClick={() => onSelect(c.id)}
+                role="button"
+                tabIndex={0}
                 aria-pressed={active}
               >
                 <div className={styles.cardBody}>
@@ -96,17 +104,22 @@ export default function CharacterList({
                   <div className={styles.spaceBtnLike}></div>
                   <button 
                     type="button"
-                    onClick={() => console.log("agregado a favoritos")} 
-                    className={styles.cardLike}>
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleFavorite(c.id, !isFav);
+                    }} 
+                    className={styles.cardLike}
+                    aria-pressed={isFav}
+                    aria-label={isFav ? "Remove from favorites" : "Add to favorites"}>
                     <Image
-                      src={"/icons/card/unmarked-favorite.svg"}
+                      src={icon}
                       alt=""
                       width={24}
                       height={24}
                     />
                     Like</button>
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>

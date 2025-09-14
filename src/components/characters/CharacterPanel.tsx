@@ -16,6 +16,7 @@ export type Character = {
   location: string;
   episodes: number;
   imageLarge: string;
+  favorite?: boolean;
 };
 
 export default function CharacterPanel() {
@@ -32,20 +33,24 @@ export default function CharacterPanel() {
     setError(null);
     try {
       const url = new URL(`${API_BASE}/characters`);
-      if (name) url.searchParams.set("name_like", name);
       url.searchParams.set("_sort", "id");
       url.searchParams.set("_order", "asc");
+
       const res = await fetch(url.toString());
       if (!res.ok) throw new Error("API error");
-      const data: Character[] = await res.json();
+
+      let data: Character[] = await res.json();
+
+      if (name) {
+        const q = name.toLowerCase();
+        data = data.filter(c => c.name.toLowerCase().includes(q));
+      }
       setCharacters(data);
 
       // si no hay seleccionado o ya no existe en la lista, selecciona el primero
-      if (!data.length) {
-        setSelectedId(null);
-      } else if (!selectedId || !data.some(d => d.id === selectedId)) {
+      if (!data.length) setSelectedId(null);
+      else if (!selectedId || !data.some(d => d.id === selectedId))
         setSelectedId(data[0].id);
-      }
     } catch (e) {
       // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
       setError("Error fetching characters");
@@ -53,6 +58,26 @@ export default function CharacterPanel() {
       setSelectedId(null);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const toggleFavorite = async (id: number, nextValue: boolean) => {
+    try {
+      // Actualizar UI primero
+      setCharacters((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, favorite: nextValue } : c))
+      );
+      // Persiste en json-server
+      await fetch(`${API_BASE}/characters/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ favorite: nextValue }),
+      });
+    } catch {
+      // Si falla, regresa el cambio
+      setCharacters((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, favorite: !nextValue } : c))
+      );
     }
   };
 
@@ -95,7 +120,7 @@ export default function CharacterPanel() {
               <p>No characters found</p>
               <Image
                 src={"/icons/card/without-results.png"}
-                alt=""
+                alt="Image without results"
                 width={150}
                 height={150}
               />
@@ -111,6 +136,7 @@ export default function CharacterPanel() {
         onQueryChange={setQuery}
         selectedId={selectedId ?? -1}
         onSelect={setSelectedId}
+        onToggleFavorite={toggleFavorite}
       />
     </section>
   );
