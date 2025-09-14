@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import styles from "./CharacterPanel.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { toggleFavorite } from "@/store/slices/favoritesSlice";
 import CharacterDetail from "./CharacterDetail";
 import CharacterList from "./CharacterList";
+import styles from "./CharacterPanel.module.scss";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -20,6 +23,9 @@ export type Character = {
 };
 
 export default function CharacterPanel() {
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((s: RootState) => s.favorites.ids);
+
   const [query, setQuery] = useState("");
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -35,22 +41,26 @@ export default function CharacterPanel() {
       const url = new URL(`${API_BASE}/characters`);
       url.searchParams.set("_sort", "id");
       url.searchParams.set("_order", "asc");
-
       const res = await fetch(url.toString());
       if (!res.ok) throw new Error("API error");
-
       let data: Character[] = await res.json();
 
       if (name) {
         const q = name.toLowerCase();
         data = data.filter(c => c.name.toLowerCase().includes(q));
       }
-      setCharacters(data);
+
+      const merged = data.map((c) => ({
+        ...c,
+        favorite: favoriteIds.includes(c.id),
+      }));
+
+      setCharacters(merged);
 
       // si no hay seleccionado o ya no existe en la lista, selecciona el primero
-      if (!data.length) setSelectedId(null);
-      else if (!selectedId || !data.some(d => d.id === selectedId))
-        setSelectedId(data[0].id);
+      if (!merged.length) setSelectedId(null);
+      else if (!selectedId || !merged.some((d) => d.id === selectedId))
+        setSelectedId(merged[0].id);
     } catch (e) {
       // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
       setError("Error fetching characters");
@@ -61,50 +71,28 @@ export default function CharacterPanel() {
     }
   };
 
-  const toggleFavorite = async (id: number, nextValue: boolean) => {
-    try {
-      // Actualizar UI primero
-      setCharacters((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, favorite: nextValue } : c))
-      );
-      // Persiste en json-server
-      await fetch(`${API_BASE}/characters/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ favorite: nextValue }),
-      });
-    } catch {
-      // Si falla, regresa el cambio
-      setCharacters((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, favorite: !nextValue } : c))
-      );
-    }
-  };
-
   // primera carga
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => { fetchData(); /* eslint-disable-next-line */ }, []);
 
   // búsqueda con debounce
   useEffect(() => {
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => {
-      const q = query.trim();
-      fetchData(q || undefined);
+      fetchData(query.trim() || undefined);
     }, 350);
 
-    return () => {
-      if (debounceRef.current) window.clearTimeout(debounceRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+    return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
+    // eslint-disable-next-line
+  }, [query, favoriteIds]);
 
   const selected = useMemo(
-    () => (selectedId ? characters.find(c => c.id === selectedId) ?? null : null),
+    () => (selectedId ? characters.find((c) => c.id === selectedId) ?? null : null),
     [characters, selectedId]
   );
+
+  const handleToggleFavorite = (id: number, _next: boolean) => {
+    dispatch(toggleFavorite(id));
+  };
 
   return (
     <section className={styles.panel} aria-label="Character browser">
@@ -136,7 +124,7 @@ export default function CharacterPanel() {
         onQueryChange={setQuery}
         selectedId={selectedId ?? -1}
         onSelect={setSelectedId}
-        onToggleFavorite={toggleFavorite}
+        onToggleFavorite={handleToggleFavorite}
       />
     </section>
   );
