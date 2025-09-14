@@ -25,7 +25,7 @@ export default function CharacterPanel() {
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<number | null>(null);
 
-  // mapper desde la respuesta del API a tu type interno
+  // mapper desde la respuesta del API en type interno
   const mapApiToCharacter = (c: any): Character => ({
     id: c.id,
     name: c.name,
@@ -56,7 +56,7 @@ export default function CharacterPanel() {
         setSelectedId(mapped[0].id);
       }
     } catch (e: any) {
-      // El cliente devuelve error si no hay resultados (404). Lo tratamos como lista vacía.
+      // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
       if (e?.response?.status === 404) {
         setCharacters([]);
         setSelectedId(null);

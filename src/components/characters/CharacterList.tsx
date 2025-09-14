@@ -110,7 +110,6 @@ export default function CharacterList({
       <nav 
         className={styles.pager}
         aria-label="Character list pagination">
-        {/* Iconos de flecha para acomodarlos */}
         <div className={styles.arrowCtnrTop}>
           <button
             type="button"
