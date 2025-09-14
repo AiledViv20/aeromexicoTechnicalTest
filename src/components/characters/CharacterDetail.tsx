@@ -15,14 +15,15 @@ export default function CharacterDetail({ character }: { character: Character })
         />
         <span className={styles.liveBadge}>
           <Image
-            src={"/icons/card/live.svg"}
+            src={character.status === "Alive" ? 
+              "/icons/card/live.svg" : character.status === "Dead" ? "/icons/card/dead.svg" : "/icons/card/unknown.svg"}
             alt=""
             aria-hidden="true"
             className={styles.dot}
             width={15}
             height={15}
             priority
-          /> LIVE
+          />{character.status === "Alive" ? "LIVE" : character.status}
         </span>
       </div>
 
@@ -30,7 +31,6 @@ export default function CharacterDetail({ character }: { character: Character })
         <div>
           <h3 className={styles.name}>{character.name}</h3>
           <p className={styles.muted}>{character.species}</p>
-          <p className={styles.muted}>{character.description}</p>
         </div>
 
         <ul className={styles.meta}>
