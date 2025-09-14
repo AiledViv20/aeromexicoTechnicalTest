@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./CharacterPanel.module.scss";
 import CharacterDetail from "./CharacterDetail";
@@ -92,13 +93,23 @@ export default function CharacterPanel() {
   return (
     <section className={styles.panel} aria-label="Character browser">
       {loading && !selected && (
-        <div className={styles.detail} style={{ display: "grid", placeItems: "center" }}>
+        <div className={styles.detail} style={{ display: "grid", placeItems: "center", fontSize: "18px", color: "#FFF" }}>
           <span>Loading…</span>
         </div>
       )}
       {!loading && !selected && (
-        <div className={styles.detail} style={{ display: "grid", placeItems: "center" }}>
-          <span>{error ?? "No characters found"}</span>
+        <div className={styles.detail} style={{ display: "grid", placeItems: "center", color: "#FFF" }}>
+          <span>{error ?? 
+            <div className={styles.showNotResults}>
+              <p>No characters found</p>
+              <Image
+                src={"/icons/card/without-results.png"}
+                alt=""
+                width={150}
+                height={150}
+              />
+            </div>
+          }</span>
         </div>
       )}
       {selected && <CharacterDetail character={selected} />}
