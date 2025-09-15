@@ -8,6 +8,7 @@ import CharacterList from "./CharacterList";
 import styles from "./CharacterPanel.module.scss";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const MAX_FAVS = 4;
 
 export type Character = {
   id: number;

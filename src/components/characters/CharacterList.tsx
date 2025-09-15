@@ -152,13 +152,18 @@ export default function CharacterList({
                 )}
                 {favCharacters.map((f) => (
                   <li key={f.id} className={styles.favItem}>
-                    <button
-                      type="button"
+                    <div
                       className={styles.favItemBtn}
                       onClick={() => { onSelect(f.id); setShowFavs(false); }}
                     >
-                      {getFirstName(f.name)}
-                    </button>
+                      <p>{getFirstName(f.name)}</p>
+                      <button 
+                        type="button" 
+                        className={styles.btnTrashFav}
+                        onClick={() => console.log("Eliminar item de favs")}>
+                        <Image src={"/icons/card/trash-can.svg"} alt="Icon trash favs" width={15} height={20} />
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>

@@ -362,9 +362,23 @@ $lime-20: rgba(132, 255, 0, 0.2);
 
 .favItemBtn {
   text-transform: uppercase;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.favItemBtn p {
+  margin: 0;
   font-size: 14px;
   font-weight: 400;
   font-family: "Roboto Condensed", sans-serif;
+}
+
+.btnTrashFav {
+  width: auto !important;
+  padding: 0 !important;
 }
 
 /* @media (max-width: 920px) {
