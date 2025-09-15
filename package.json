@@ -1,25 +1,43 @@
 {
   "name": "aeromexico-technical-test",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "seed": "node scripts/seed.mjs --limit=24",
+    "api": "json-server --watch db.json --port 3001",
+    "clear:favs": "node scripts/clear-favs.mjs"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.9.0",
+    "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "rickmortyapi": "^2.3.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "^3"
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.1.3",
+    "jest-environment-jsdom": "^30.1.2",
+    "json-server": "^1.0.0-beta.3",
+    "sass": "^1.92.1",
+    "typescript": "^5"
   }
 }
