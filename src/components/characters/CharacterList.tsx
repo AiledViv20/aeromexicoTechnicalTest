@@ -177,7 +177,7 @@ export default function CharacterList({
             aria-label="Previous"
             disabled={!canPrev}
           >
-            <Image src={"/icons/card/arrow-top.svg"} alt="Icon arrow top" aria-hidden="true" width={32} height={32} priority />
+            <span className={styles.arrowIconTop} />
           </button>
         </div>
         <div className={styles.arrowCtnrBottom}>
@@ -188,7 +188,7 @@ export default function CharacterList({
             aria-label="Next"
             disabled={!canNext}
           >
-            <Image src={"/icons/card/arrow-bottom.svg"} alt="Icon arrow bottom" aria-hidden="true" width={32} height={32} priority />
+            <span className={styles.arrowIconBottom} />
           </button>
         </div>
       </nav>

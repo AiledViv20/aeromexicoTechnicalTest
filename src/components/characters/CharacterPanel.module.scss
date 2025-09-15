@@ -233,17 +233,37 @@ $lime-20: rgba(132, 255, 0, 0.2);
 }
 
 .arrowBtn {
-  background: #696969;
+  background: #909090;
   border: none;
   border-radius: 8px;
-  padding: 4px;
+  padding: 8px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: opacity .15s ease, transform .1s ease;
+  transition: background .15s ease, box-shadow .15s ease, transform .1s ease, opacity .15s ease;
 
-  &:active { transform: translateY(1px); }
+  &:active:not(.arrowDisabled) {
+    background: #5A5A5A;
+  }
 }
+
+.arrowIconTop {
+  width: 22px; height: 22px;
+  background: #FFF;
+  -webkit-mask: url('/icons/card/arrow-top.svg') no-repeat center / contain;
+          mask: url('/icons/card/arrow-top-green.svg') no-repeat center / contain;
+  transition: background .15s ease;
+}
+.arrowBtn:hover .arrowIconTop { background: $lime; }
+
+.arrowIconBottom {
+  width: 22px; height: 22px;
+  background: #FFF;
+  -webkit-mask: url('/icons/card/arrow-bottom.svg') no-repeat center / contain;
+          mask: url('/icons/card/arrow-bottom-green.svg') no-repeat center / contain;
+  transition: background .15s ease;
+}
+.arrowBtn:hover .arrowIconBottom { background: $lime; }
 
 .arrowDisabled {
   opacity: .4;
