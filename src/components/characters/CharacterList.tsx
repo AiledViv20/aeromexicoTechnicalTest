@@ -5,6 +5,7 @@ import type { Character } from "./CharacterPanel";
 
 type Props = {
   items: Character[];
+  allItemsForFavs?: Character[];
   query: string;
   onQueryChange: (v: string) => void;
   selectedId: number;
@@ -17,6 +18,7 @@ type Props = {
 
 export default function CharacterList({
   items,
+  allItemsForFavs,
   query,
   onQueryChange,
   selectedId,
@@ -30,6 +32,7 @@ export default function CharacterList({
   const [showFavs, setShowFavs] = useState(false);
 
   const [effectivePageSize, setEffectivePageSize] = useState(pageSize);
+  const sourceForFavs = allItemsForFavs ?? items;
 
   useEffect(() => {
     const updatePageSize = () => {
@@ -67,10 +70,10 @@ export default function CharacterList({
   // favoritos para pintar en el panel
   const favCharacters = useMemo(
     () => favIds
-      .map(id => items.find(c => c.id === id))
+      .map(id => sourceForFavs.find(c => c.id === id))
       .filter(Boolean)
       .slice(0, maxFavs) as Character[],
-    [favIds, items, maxFavs]
+    [favIds, sourceForFavs, maxFavs]
   );
 
   return (
