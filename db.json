@@ -130,7 +130,7 @@
       "location": "Earth (Replacement Dimension)",
       "episodes": 1,
       "imageLarge": "https://rickandmortyapi.com/api/character/avatar/11.jpeg",
-      "favorite": false
+      "favorite": true
     },
     {
       "id": "12",
