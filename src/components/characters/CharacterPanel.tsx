@@ -96,6 +96,12 @@ export default function CharacterPanel() {
   );
 
   const handleToggleFavorite = (id: number, next: boolean) => {
+    // si intenta marcar y ya alcanzó 4 (y ese id no está ya favorito), bloquea
+    const alreadyFav = favIds.includes(id);
+    if (next && !alreadyFav && favIds.length >= MAX_FAVS) {
+      alert("You can only select up to 4 favorites.");
+      return;
+    }
     dispatch(toggleFavorite({ id, next }));
   };
 
@@ -131,6 +137,7 @@ export default function CharacterPanel() {
         onSelect={setSelectedId}
         onToggleFavorite={handleToggleFavorite}
         favIds={favIds}
+        maxFavs={MAX_FAVS}
       />
     </section>
   );

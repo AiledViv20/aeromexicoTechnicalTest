@@ -12,6 +12,7 @@ type Props = {
   pageSize?: number;
   onToggleFavorite: (id: number, nextValue: boolean) => void;
   favIds: number[];
+  maxFavs?: number;
 };
 
 export default function CharacterList({
@@ -23,6 +24,7 @@ export default function CharacterList({
   pageSize = 4,
   onToggleFavorite,
   favIds,
+  maxFavs = 4,
 }: Props) {
   const [page, setPage] = useState(0);
   const [showFavs, setShowFavs] = useState(false);
@@ -50,8 +52,9 @@ export default function CharacterList({
   const favCharacters = useMemo(
     () => favIds
       .map(id => items.find(c => c.id === id))
-      .filter(Boolean) as Character[],
-    [favIds, items]
+      .filter(Boolean)
+      .slice(0, maxFavs) as Character[],
+    [favIds, items, maxFavs]
   );
 
   return (
@@ -84,6 +87,8 @@ export default function CharacterList({
           {pageItems.map((c) => {
             const active = c.id === selectedId;
             const isFav = favIds.includes(c.id);
+            // deshabilitar si intenta marcar y ya hay 4 (y este no es fav)
+            const likeDisabled = !isFav && favIds.length >= maxFavs;
             const icon = isFav
               ? "/icons/card/marked-favorite.svg"
               : "/icons/card/unmarked-favorite.svg";
@@ -108,12 +113,15 @@ export default function CharacterList({
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
+                      if (likeDisabled) return; 
                       onToggleFavorite(c.id, !isFav);
                     }} 
-                    className={styles.cardLike}
+                    className={`${styles.cardLike} ${likeDisabled ? styles.likeDisabled : ""}`}
+                    disabled={likeDisabled}
                     aria-pressed={isFav}
-                    aria-label={isFav ? "Remove from favorites" : "Add to favorites"}>
-                    <Image src={icon} alt="" width={24} height={24} />
+                    aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+                    title={likeDisabled ? "You can only select up to 4 favorites" : "Toggle favorite"}>
+                    <Image src={icon} alt="Icon marked favorite" width={24} height={24} />
                     Like</button>
                 </div>
               </div>
@@ -155,13 +163,20 @@ export default function CharacterList({
                     <div
                       className={styles.favItemBtn}
                       onClick={() => { onSelect(f.id); setShowFavs(false); }}
+                      role="button"
+                      tabIndex={0}
                     >
                       <p>{getFirstName(f.name)}</p>
                       <button 
                         type="button" 
                         className={styles.btnTrashFav}
-                        onClick={() => console.log("Eliminar item de favs")}>
-                        <Image src={"/icons/card/trash-can.svg"} alt="Icon trash favs" width={15} height={20} />
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleFavorite(f.id, false);
+                        }}
+                        aria-label={`Remove ${getFirstName(f.name)} from favorites`}
+                        title="Remove from favorites">
+                          <Image src={"/icons/card/trash-can.svg"} alt="Icon trash favs" width={15} height={20} />
                       </button>
                     </div>
                   </li>

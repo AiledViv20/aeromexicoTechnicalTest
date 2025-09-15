@@ -376,6 +376,11 @@ $lime-20: rgba(132, 255, 0, 0.2);
   font-family: "Roboto Condensed", sans-serif;
 }
 
+.likeDisabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 .btnTrashFav {
   width: auto !important;
   padding: 0 !important;

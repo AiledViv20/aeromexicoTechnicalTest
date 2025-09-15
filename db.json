@@ -130,7 +130,7 @@
       "location": "Earth (Replacement Dimension)",
       "episodes": 1,
       "imageLarge": "https://rickandmortyapi.com/api/character/avatar/11.jpeg",
-      "favorite": true
+      "favorite": false
     },
     {
       "id": "12",
@@ -214,7 +214,7 @@
       "location": "Citadel of Ricks",
       "episodes": 2,
       "imageLarge": "https://rickandmortyapi.com/api/character/avatar/18.jpeg",
-      "favorite": false
+      "favorite": true
     },
     {
       "id": "19",
