@@ -29,16 +29,32 @@ export default function CharacterList({
   const [page, setPage] = useState(0);
   const [showFavs, setShowFavs] = useState(false);
 
+  const [effectivePageSize, setEffectivePageSize] = useState(pageSize);
+
+  useEffect(() => {
+    const updatePageSize = () => {
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 480;
+      setEffectivePageSize(isMobile ? 2 : pageSize);
+    };
+    updatePageSize();
+    window.addEventListener("resize", updatePageSize);
+    return () => window.removeEventListener("resize", updatePageSize);
+  }, [pageSize]);
+
   useEffect(() => {
     setPage(0);
-  }, [query, items.length]);
+  }, [query, items.length, effectivePageSize]);
 
-  const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(items.length / effectivePageSize));
 
   const pageItems = useMemo(() => {
-    const start = page * pageSize;
-    return items.slice(start, start + pageSize);
-  }, [items, page, pageSize]);
+    const start = page * effectivePageSize;
+    return items.slice(start, start + effectivePageSize);
+  }, [items, page, effectivePageSize]);
+
+  useEffect(() => {
+    if (page >= totalPages) setPage(totalPages - 1);
+  }, [totalPages, page]);
 
   const canPrev = page > 0;
   const canNext = page < totalPages - 1;

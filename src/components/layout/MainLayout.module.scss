@@ -57,11 +57,22 @@
   .logo {
     top: 20;
     left: 50%;
-    width: 302px;
-    height: 75px;
+    width: 280px;
+    height: auto;
+    object-fit: contain;
   }
 
   .grass {
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grass {
     height: 80px;
+  }
+
+  .logo {
+    width: 180px;
   }
 }

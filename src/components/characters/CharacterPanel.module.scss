@@ -286,6 +286,7 @@ $lime-20: rgba(132, 255, 0, 0.2);
   width: 200px;
   height: 40px;
   border: none;
+  font-size: 14px;
   border-radius: 10px 10px 0 0;
   transition: color 0.3s ease-in-out;
   cursor: pointer;
@@ -319,7 +320,6 @@ $lime-20: rgba(132, 255, 0, 0.2);
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 18px;
   cursor: pointer;
 
   &:hover { color: $lime; }
@@ -428,5 +428,85 @@ $lime-20: rgba(132, 255, 0, 0.2);
     gap: 10px 16px;
   }
 
+  .cardTitle { font-size: 12px; }
+
   .cardThumb img { object-fit: cover; width: 100px; height: 80px; }
+
+  .spaceBtnLike {
+    height: 16px;
+  }
+  .cardLike {
+    font-size: 14px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .panel {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    margin-top: 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail {
+    width: 280px;
+    height: 280px;
+  }
+
+  .name { font-size: 14px; }
+  .muted { font-size: 12px; }
+
+  .meta {
+    gap: 8px;
+
+    li {
+      strong { font-size: 14px; }
+      span { font-size: 12px; }
+    }
+  }
+
+  .detailFooter {
+    gap: 10px;
+    border-radius: 0 0 20px 20px;
+    padding-bottom: 3rem;
+  }
+
+  .meta {
+    grid-template-columns: repeat(4, auto);
+  }
+
+  .detailImg {
+    border-radius: 20px;
+  }
+
+  .liveBadge {
+    width: 100px;
+    top: 12;
+    left: 12;
+  }
+
+  .favs {
+    bottom: -102%;
+    left: 20%;
+  }
+
+  .btnFavs {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .arrowCtnrBottom {
+    padding-bottom: 0;
+    margin-top: 6rem;
+  }
 }
