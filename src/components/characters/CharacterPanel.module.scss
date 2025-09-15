@@ -69,7 +69,7 @@ $lime-20: rgba(132, 255, 0, 0.2);
 .detailFooter {
   position: absolute;
   bottom: 0;
-  width: 95%;
+  width: -webkit-fill-available;
   background: rgba(0, 0, 0, 0.70);
   color: #e8e8e8;
   padding: 14px 16px;
@@ -386,7 +386,47 @@ $lime-20: rgba(132, 255, 0, 0.2);
   padding: 0 !important;
 }
 
-/* @media (max-width: 920px) {
-  .panel { grid-template-columns: 1fr; }
-  .meta { grid-template-columns: repeat(2, auto); }
-} */
+@media (max-width: 1024px) {
+  .panel {
+    grid-template-columns: 360px auto;
+  }
+
+  .detail {
+    height: 550px;
+  }
+
+  .cardThumb img { object-fit: cover; width: 120px; height: 100px; }
+}
+
+@media (max-width: 768px) {
+  .panel {
+    grid-template-columns: 260px auto;
+  }
+
+  .detail {
+    height: 520px;
+  }
+
+  .detailFooter {
+    gap: 30px;
+  }
+
+  .name { font-size: 16px; }
+  .muted { font-size: 14px; }
+
+  .meta {
+    grid-template-columns: repeat(2, auto);
+    gap: 18px;
+
+    li {
+      strong { font-size: 16px; }
+      span { font-size: 14px; }
+    }
+  }
+
+  .grid {
+    gap: 10px 16px;
+  }
+
+  .cardThumb img { object-fit: cover; width: 100px; height: 80px; }
+}

@@ -48,7 +48,20 @@
   place-items: center;
 }
 
-/* @media (max-width: 768px) {
-  .logo { top: 16px; width: 75%; height: auto; }
-  .characters { opacity: .85; }
-} */
+@media (max-width: 768px) {
+  .starryBg {
+    background: url("/images/bg-rick-morty-2.png") no-repeat;
+    background-size: cover;
+  }
+
+  .logo {
+    top: 20;
+    left: 50%;
+    width: 302px;
+    height: 75px;
+  }
+
+  .grass {
+    height: 80px;
+  }
+}
