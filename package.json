@@ -9,7 +9,10 @@
     "lint": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "seed": "node scripts/seed.mjs --limit=24",
+    "api": "json-server --watch db.json --port 3001",
+    "clear:favs": "node scripts/clear-favs.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -17,7 +20,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "rickmortyapi": "^2.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

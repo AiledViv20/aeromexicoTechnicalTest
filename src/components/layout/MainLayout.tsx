@@ -10,7 +10,7 @@ export default function MainLayout({ children }: Props) {
 
       <Image
         src={"/images/letters-rick-morty.png"}
-        alt=""
+        alt="Rick and Morty Logo"
         aria-hidden="true"
         className={styles.logo}
         width={332}
@@ -20,7 +20,7 @@ export default function MainLayout({ children }: Props) {
 
       <Image
         src={"/images/degraded.png"}
-        alt=""
+        alt="Green Degraded"
         aria-hidden="true"
         className={styles.grass}
         width={100}
