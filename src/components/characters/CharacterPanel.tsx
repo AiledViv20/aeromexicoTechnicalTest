@@ -28,12 +28,13 @@ export default function CharacterPanel() {
   const favIds = useSelector(selectFavIds);
 
   const [query, setQuery] = useState("");
+  const [allCharacters, setAllCharacters] = useState<Character[]>([]);
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<number | null>(null);
-
+  
   // fetch: carga por nombre (si hay query) o primer page
   const fetchData = async (name?: string) => {
     setLoading(true);
@@ -46,6 +47,7 @@ export default function CharacterPanel() {
       if (!res.ok) throw new Error("API error");
       
       let data: Character[] = await res.json();
+      setAllCharacters(data);
 
       if (name) {
         const q = name.toLowerCase();
@@ -60,6 +62,7 @@ export default function CharacterPanel() {
     } catch (e) {
       // El cliente devuelve error si no hay resultados (404). Se tratará como lista vacía.
       setError("Error fetching characters");
+      setAllCharacters([]);
       setCharacters([]);
       setSelectedId(null);
     } finally {
@@ -131,6 +134,7 @@ export default function CharacterPanel() {
 
       <CharacterList
         items={characters}
+        allItemsForFavs={allCharacters}
         query={query}
         onQueryChange={setQuery}
         selectedId={selectedId ?? -1}
