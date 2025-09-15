@@ -62,7 +62,7 @@ export default function CharacterList({
           <div className={styles.searchWrap}>
             <Image
               src={"/icons/search-bar.svg"}
-              alt=""
+              alt="Icon search bar"
               aria-hidden="true"
               className={styles.iconSearchBar}
               width={24}
@@ -142,7 +142,7 @@ export default function CharacterList({
                   onClick={() => setShowFavs(false)}
                   aria-label="Close favorites"
                 >
-                  <Image src={"/icons/card/close-favs.png"} alt="" width={22} height={22} />
+                  <Image src={"/icons/card/close-favs.png"} alt="Icon close favs" width={22} height={22} />
                 </button>
               </div>
 
@@ -177,7 +177,7 @@ export default function CharacterList({
             aria-label="Previous"
             disabled={!canPrev}
           >
-            <Image src={"/icons/card/arrow-top.svg"} alt="" aria-hidden="true" width={32} height={32} priority />
+            <Image src={"/icons/card/arrow-top.svg"} alt="Icon arrow top" aria-hidden="true" width={32} height={32} priority />
           </button>
         </div>
         <div className={styles.arrowCtnrBottom}>
@@ -188,7 +188,7 @@ export default function CharacterList({
             aria-label="Next"
             disabled={!canNext}
           >
-            <Image src={"/icons/card/arrow-bottom.svg"} alt="" aria-hidden="true" width={32} height={32} priority />
+            <Image src={"/icons/card/arrow-bottom.svg"} alt="Icon arrow bottom" aria-hidden="true" width={32} height={32} priority />
           </button>
         </div>
       </nav>

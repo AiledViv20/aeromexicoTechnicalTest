@@ -17,7 +17,7 @@ export default function CharacterDetail({ character }: { character: Character })
           <Image
             src={character.status === "Alive" ? 
               "/icons/card/live.svg" : character.status === "Dead" ? "/icons/card/dead.svg" : "/icons/card/unknown.svg"}
-            alt=""
+            alt="Icon status character"
             aria-hidden="true"
             className={styles.dot}
             width={15}
